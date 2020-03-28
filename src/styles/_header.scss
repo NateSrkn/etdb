@@ -1,0 +1,30 @@
+
+.header {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 75px;
+  background: white;
+  padding: 15px;
+
+  .nav-items {
+    margin-left: auto;
+    display: flex;
+
+    .item {
+      padding: 10px;
+      border-radius: 20px;
+      transition: ease 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background: lighten($color: #000000, $amount: 75);
+        transition: ease 0.3s;
+      }
+      &:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+  }
+}

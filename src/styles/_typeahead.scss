@@ -1,0 +1,31 @@
+.search {
+  position: relative;
+
+
+  
+  input { 
+
+      &:not(:focus) {
+       & + .search-results {
+          // display: none;
+        }
+      }
+  }
+
+  .search-results {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 500px;
+    overflow-y: scroll;
+
+    .result {
+      display: flex;
+
+      .image {
+        width: 5vw;
+      }
+    }
+  }
+}

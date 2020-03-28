@@ -1,26 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from 'react-router-dom'
+import { Header } from './components/Header'
+import { ScrollList } from './components/ScrollList'
+import { MoviePage } from './pages/MoviePage'
+import { TVPage } from './pages/TVPage'
+import { PersonPage } from './pages/PersonPage'
+import './styles/main.scss';
 
-function App() {
+const App = () => {
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Switch>
+        <Route exact path="/">
+        <div className="page">
+          <div className="section">
+            <h3>Movies</h3>
+            <div className="section-list">
+              <ScrollList type="movie" isLatest={false} />
+            </div>
+          </div>
+          <div className="section">
+            <h3>Shows</h3>
+            <div className="section-list">
+              <ScrollList type="tv" isLatest={false} />
+            </div>
+          </div>
+        </div>
+        </Route>
+        <Route path="/movie/:movieId">
+          <MoviePage />
+        </Route>
+        <Route path="/tv/:tvId">
+          <TVPage />
+        </Route>
+        <Route path="/person/:personId">
+          <PersonPage />
+        </Route>
+      </Switch>
     </div>
-  );
+  )
 }
 
 export default App;

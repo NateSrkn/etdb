@@ -1,0 +1,28 @@
+const baseUrl = 'https://api.themoviedb.org/3'
+
+export const FETCH_SINGULAR_ENDPOINT = (type, id) => {
+  let endpoint = `${baseUrl}/${type}/${id}`
+  return endpoint
+}
+
+export const FETCH_SINGULAR_CAST_ENDPOINT = (type, id) => {
+  let endpoint = `${baseUrl}/${type}/${id}/credits`
+  return endpoint
+}
+
+export const FETCH_PERSON_CREDITS_ENDPOINT = (type, id) => {
+  let endpoint = `${baseUrl}/person/${id}/${type}_credits`
+  return endpoint 
+}
+
+export const FETCH_LATEST_ENDPOINT = (type) => {
+  let endpoint = `${baseUrl}/${type}/latest`
+  return endpoint
+}
+
+export const FETCH_BULK_ENDPOINT = (type) => {
+  let endpoint = `${baseUrl}/discover/${type}`
+  return endpoint
+}
+
+export const MULTI_SEARCH_ENDPOINT = `${baseUrl}/search/multi`
