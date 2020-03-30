@@ -13,3 +13,19 @@
   scroll-behavior: smooth;
   color:#465165;
 }
+
+button {
+  cursor: pointer;
+  font-weight: bold;
+  background: $white;
+  font-size: 16px;
+  border: 2px solid $green;
+  color: $green;
+  border-radius: 10px;
+  padding: 10px;
+
+  &:hover {
+    background: $green;
+    color: $white;
+  }
+}

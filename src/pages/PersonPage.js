@@ -4,6 +4,7 @@ import { call } from '../api/apiCall'
 import { FETCH_SINGULAR_ENDPOINT, FETCH_PERSON_CREDITS_ENDPOINT } from '../api/endpoints'
 import { Root, Section } from '../components/Layout'
 import { Image } from '../components/Image'
+import { CastList } from '../components/CastList'
 export const PersonPage = () => {
   let id = useParams()
   let [person, setPerson] = useState(null)
@@ -15,6 +16,9 @@ export const PersonPage = () => {
         base: {
           url: FETCH_SINGULAR_ENDPOINT('person', id.personId),
           method: 'get'
+        },
+        params: {
+          append_to_response: 'credits'
         }
       }
 
@@ -32,17 +36,22 @@ export const PersonPage = () => {
 
     fetchPerson()
   }, [id])
+  if(!person) return null
   return (
     <React.Fragment>
-      {console.log(credits)}
+      {console.log(person)}
         <Root>
-          <Section>
-              {person ? 
+          <Section hero>
               <div>
-                <Image rounded src={person.profile_path} alt={person.name} />
+                <Image rounded src={person.profile_path} alt={person.name} style={{width: '100%'}}/>
                 {person.name}
               </div>
-            : null}
+          </Section>
+        </Root>
+
+        <Root>
+          <Section>
+            <CastList cast={person.credits.cast} />
           </Section>
         </Root>
     </React.Fragment>

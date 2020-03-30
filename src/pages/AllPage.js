@@ -12,12 +12,7 @@ const MediaGrid = styled.div`
 `
 const MediaItem = styled.div`
   margin: 5px 5px;
-  flex: 0;
-  ${'' /* width: 16%; */}
-`
-
-const Sidebar = styled.div`
-
+  flex: 0 1;
 `
 export const AllPage = ({ type }) => {
   let [data, setData] = useState([])
@@ -85,7 +80,7 @@ export const AllPage = ({ type }) => {
         </Section>
       </Root>
       <Root>
-        <Section>
+        <Section style={{display: 'flex', justifyContent: 'center'}}>
           <button onClick={(event) => onScrollToBottom(event)} style={{margin: '0 auto'}}>Find More</button>
         </Section>
       </Root>

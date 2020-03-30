@@ -17,6 +17,8 @@ const ListItem = styled.li`
   margin: 0 10px;
 ` 
 export const CastList = ({cast}) => {
+  {console.log(cast)}
+
   if(!cast) return null
   return (
     <Container>
@@ -31,7 +33,7 @@ const Card = ({ credit }) => {
   return (
     <ListItem>
       <Link to={`/person/${credit.id}`}>
-        <Image rounded small src={credit.profile_path} alt={credit.name} />
+        <Image rounded small src={credit.profile_path || credit.poster_path} alt={credit.name || credit.title} />
         <div>{credit.name}</div>
         {credit.character}
       </Link>
