@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { call } from '../api/apiCall'
 import { FETCH_SINGULAR_ENDPOINT, FETCH_PERSON_CREDITS_ENDPOINT } from '../api/endpoints'
-
+import { Root, Section } from '../components/Layout'
+import { Image } from '../components/Image'
 export const PersonPage = () => {
   let id = useParams()
   let [person, setPerson] = useState(null)
@@ -32,19 +33,18 @@ export const PersonPage = () => {
     fetchPerson()
   }, [id])
   return (
-    <div className="page">
+    <React.Fragment>
       {console.log(credits)}
-      {person ? 
-        <div>
-          <div className="poster">
-            {person.profile_path ?
-            <img src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`} alt={person.name}/> 
-            : 
-            <img src={`https://via.placeholder.com/500x750.png?text=${person.name}`} alt={person.name} />}
-          </div>
-          {person.name}
-        </div>
-      : null}
-    </div>
+        <Root>
+          <Section>
+              {person ? 
+              <div>
+                <Image rounded src={person.profile_path} alt={person.name} />
+                {person.name}
+              </div>
+            : null}
+          </Section>
+        </Root>
+    </React.Fragment>
   )
 }

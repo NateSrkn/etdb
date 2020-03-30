@@ -5,11 +5,7 @@
   
   input { 
 
-      &:not(:focus) {
-       & + .search-results {
-          // display: none;
-        }
-      }
+  
   }
 
   .search-results {

@@ -5,11 +5,6 @@ export const FETCH_SINGULAR_ENDPOINT = (type, id) => {
   return endpoint
 }
 
-export const FETCH_SINGULAR_CAST_ENDPOINT = (type, id) => {
-  let endpoint = `${baseUrl}/${type}/${id}/credits`
-  return endpoint
-}
-
 export const FETCH_PERSON_CREDITS_ENDPOINT = (type, id) => {
   let endpoint = `${baseUrl}/person/${id}/${type}_credits`
   return endpoint 
@@ -26,3 +21,8 @@ export const FETCH_BULK_ENDPOINT = (type) => {
 }
 
 export const MULTI_SEARCH_ENDPOINT = `${baseUrl}/search/multi`
+
+export const FETCH_TRENDING_ENDPOINT = (type) => {
+  let endpoint = `${baseUrl}/trending/${type}/week`
+  return endpoint
+}

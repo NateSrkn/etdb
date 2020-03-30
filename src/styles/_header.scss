@@ -1,29 +1,28 @@
-
 .header {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 75px;
   background: white;
-  padding: 15px;
+  color: $black;
+  display: flex;
+  height: 80px;
+  border-radius: 20px;
+  padding: 0 30px;
+  align-items: center;
+  justify-content: space-between;
+
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: $black;
+    text-decoration: none;
+  }
 
   .nav-items {
-    margin-left: auto;
     display: flex;
+    font-size: 16px;
+    font-weight: 500;
 
     .item {
-      padding: 10px;
-      border-radius: 20px;
-      transition: ease 0.3s;
-      cursor: pointer;
-
-      &:hover {
-        background: lighten($color: #000000, $amount: 75);
-        transition: ease 0.3s;
-      }
       &:not(:last-child) {
-        margin-right: 15px;
+        margin-right: 30px;
       }
     }
   }

@@ -1,18 +1,35 @@
 import React from 'react'
-import { Search } from './Search'
+import { Autocomplete } from './Autocomplete'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const NavList = styled.ul`
+  display: flex;
+  list-style-type: none;
+
+  li {
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+`
 
 export const Header = () => {
   return (
-    <div className="header">
-      <Link to="/">
-        Movie App
+    <Container className="header">
+      <Link to="/" className="logo">
+        Logo
       </Link>
-      <Search />
-      <div className="nav-items">
-        <div className="item">Movies</div>
-        <div className="item">TV Shows</div>
-      </div>
-    </div>
+      <NavList className="nav-items">
+        <li className="item">Movies</li>
+        <li className="item">TV Shows</li>
+      </NavList>
+      {/* <Autocomplete /> */}
+    </Container>
   )
 }

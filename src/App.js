@@ -1,42 +1,45 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import { Header } from './components/Header'
-import { ScrollList } from './components/ScrollList'
-import { MoviePage } from './pages/MoviePage'
+import { FeaturedHero } from './components/FeaturedHero'
+import { MediaList } from './components/MediaList'
+import { MediaPage } from './pages/MediaPage'
 import { TVPage } from './pages/TVPage'
 import { PersonPage } from './pages/PersonPage'
+import { Section, Root } from './components/Layout';
 import './styles/main.scss';
 
 const App = () => {
   
   return (
     <div className="App">
-      <Header />
+      <Root className="root">
+        <Section className="section">
+          <Header />
+        </Section>
+      </Root>
       <Switch>
         <Route exact path="/">
-        <div className="page">
-          <div className="section">
-            <h3>Movies</h3>
-            <div className="section-list">
-              <ScrollList type="movie" isLatest={false} />
-            </div>
-          </div>
-          <div className="section">
-            <h3>Shows</h3>
-            <div className="section-list">
-              <ScrollList type="tv" isLatest={false} />
-            </div>
-          </div>
-        </div>
+          <Root className="root">
+            <Section className="section">
+              <FeaturedHero />
+            </Section>
+            <Section className="section">
+              <MediaList type="movie" isLatest={false} />
+            </Section>
+            <Section className="section">
+              <MediaList type="tv" isLatest={false} />
+            </Section>
+          </Root>
         </Route>
         <Route path="/movie/:movieId">
-          <MoviePage />
+            <MediaPage type='movie' />
         </Route>
         <Route path="/tv/:tvId">
-          <TVPage />
+            <MediaPage type='tv' />
         </Route>
         <Route path="/person/:personId">
-          <PersonPage />
+            <PersonPage />
         </Route>
       </Switch>
     </div>
