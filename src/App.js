@@ -20,10 +20,12 @@ const App = () => {
       </Root>
       <Switch>
         <Route exact path="/">
-          <Root className="root">
-            <Section className="section">
+          <Root style={{backgroundImage: 'linear-gradient(to right, rgba(20.78%, 24.31%, 30.98%, 1.00) 150px, rgba(29.80%, 31.76%, 36.08%, 0.84) 100%)'}}>
+            <Section>
               <FeaturedHero />
             </Section>
+          </Root>
+          <Root>
             <Section className="section">
               <MediaList type="movie" isLatest={true} />
             </Section>

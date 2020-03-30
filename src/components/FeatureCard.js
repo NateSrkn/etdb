@@ -24,6 +24,10 @@ const Info = styled.div`
   grid-row: 1/1;
   padding: 15px;
   font-size: .85rem;
+  color: #F9F8F8;
+  a {
+    color: inherit;
+  }
 
   @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
     grid-column: 2/12;
@@ -33,7 +37,7 @@ const Info = styled.div`
 `
 export const FeatureCard = ({ feature }) => {
   return (
-    <Container>
+    <Container>    
         <Media>
           <Image rounded src={feature.backdrop_path} alt={feature.title || feature.name} style={{width: 'auto'}}/>
         </Media>

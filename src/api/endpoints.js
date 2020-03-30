@@ -5,11 +5,6 @@ export const FETCH_SINGULAR_ENDPOINT = (type, id) => {
   return endpoint
 }
 
-export const FETCH_PERSON_CREDITS_ENDPOINT = (type, id) => {
-  let endpoint = `${baseUrl}/person/${id}/${type}_credits`
-  return endpoint 
-}
-
 export const FETCH_LATEST_ENDPOINT = (type) => {
   let endpoint = `${baseUrl}/${type}/popular`
   return endpoint

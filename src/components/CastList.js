@@ -17,8 +17,6 @@ const ListItem = styled.li`
   margin: 0 10px;
 ` 
 export const CastList = ({cast}) => {
-  {console.log(cast)}
-
   if(!cast) return null
   return (
     <Container>

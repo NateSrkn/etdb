@@ -26,8 +26,8 @@ export const FeaturedHero = ({ type }) => {
 
   let settings = {
     infinite: true,
-    autoplay: true,
-    autoplaySpeed: 5000,
+    // autoplay: true,
+    // autoplaySpeed: 5000,
     arrows: false,
     className: 'featured-slider',
     speed: 500,

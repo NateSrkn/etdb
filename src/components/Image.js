@@ -13,6 +13,14 @@ const Container = styled.div`
     max-width: 100%;
   }
 
+  ${props => props.hero && css`
+    width: 50%;
+
+    @media screen and (max-width: ${props.theme.breakpoints.mobile}) {
+      width: 100%;
+    }
+  `}
+
   ${props => props.rounded && css`
     img {
       border-radius: 20px;
