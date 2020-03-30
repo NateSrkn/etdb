@@ -34,11 +34,12 @@ export const FeaturedHero = ({ type }) => {
     slidesToShow: 1,
     slidesToScroll: 1
   }
+  if(!featured) return null
   return (
     <React.Fragment>
       <h3>Popular Now</h3>
       <Slider {...settings}>
-          {featured ? featured.results.map((feature, index) => <FeatureCard feature={feature} key={index} />) : null}
+          {featured.results.map((feature, index) => <FeatureCard feature={feature} key={index} />)}
       </Slider>
     </React.Fragment>
   )

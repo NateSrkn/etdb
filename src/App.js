@@ -4,7 +4,7 @@ import { Header } from './components/Header'
 import { FeaturedHero } from './components/FeaturedHero'
 import { MediaList } from './components/MediaList'
 import { MediaPage } from './pages/MediaPage'
-import { TVPage } from './pages/TVPage'
+import { AllPage } from './pages/AllPage'
 import { PersonPage } from './pages/PersonPage'
 import { Section, Root } from './components/Layout';
 import './styles/main.scss';
@@ -25,10 +25,10 @@ const App = () => {
               <FeaturedHero />
             </Section>
             <Section className="section">
-              <MediaList type="movie" isLatest={false} />
+              <MediaList type="movie" isLatest={true} />
             </Section>
             <Section className="section">
-              <MediaList type="tv" isLatest={false} />
+              <MediaList type="tv" isLatest={true} />
             </Section>
           </Root>
         </Route>
@@ -40,6 +40,12 @@ const App = () => {
         </Route>
         <Route path="/person/:personId">
             <PersonPage />
+        </Route>
+        <Route path="/all/movies">
+            <AllPage key="movie" type="movie" />
+        </Route>
+        <Route path="/all/shows">
+            <AllPage key="tv" type="tv" />
         </Route>
       </Switch>
     </div>

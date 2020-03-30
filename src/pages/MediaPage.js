@@ -61,33 +61,28 @@ export const MediaPage = ({ type }) => {
     fetch()
   }, [type, id])
 
-
+  if(!data) return null
   return (
     <React.Fragment>
-      {data ? 
-      <React.Fragment>
-          <Root>
-            <Section hero>
-              <Media>
-                <Image src={data.poster_path} alt={data.title || data.name} style={{width: '100%'}}/>
-              </Media>
-              <Info>
-                <h3>{data.title || data.name}</h3>
-                <div>
-                  {data.overview}
-                </div>
-              </Info>
-            </Section>
-          </Root>
-          <Root>
-            <Section>
-              <CastList cast={data.credits.cast} />
-            </Section>
-          </Root>
-        </React.Fragment>
-       : null}
-  
-      {console.log(data)}
+      <Root>
+        <Section hero>
+          <Media>
+            <Image src={data.poster_path} alt={data.title || data.name} style={{width: '100%'}}/>
+          </Media>
+          <Info>
+            <h3>{data.title || data.name}</h3>
+            <div>
+              {data.overview}
+            </div>
+          </Info>
+        </Section>
+      </Root>
+      <Root>
+        <Section>
+          <CastList cast={data.credits.cast} />
+        </Section>
+      </Root>
+      {/* {console.log(data)} */}
     </React.Fragment>
   )
 }

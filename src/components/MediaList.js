@@ -46,12 +46,13 @@ export const MediaList = ({ type, isLatest }) => {
 
       fetchData()
   }, [type, isLatest])
-
+  
+  if(!data) return null
   return (
     <Container>
       <ListHeader>{type === "movie" ? "Movies" : "Shows"}</ListHeader>
       <List>
-        {data ? data.map((item, index) => <Card type={type} data={item} key={index} />) : null}
+        {data.map((item, index) => <Card type={type} data={item} key={index} />)}
       </List>
     </Container>
   )

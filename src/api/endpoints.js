@@ -11,7 +11,7 @@ export const FETCH_PERSON_CREDITS_ENDPOINT = (type, id) => {
 }
 
 export const FETCH_LATEST_ENDPOINT = (type) => {
-  let endpoint = `${baseUrl}/${type}/latest`
+  let endpoint = `${baseUrl}/${type}/popular`
   return endpoint
 }
 

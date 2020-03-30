@@ -17,17 +17,17 @@ const ListItem = styled.li`
   margin: 0 10px;
 ` 
 export const CastList = ({cast}) => {
+  if(!cast) return null
   return (
     <Container>
       <List>
-        {cast ? cast.map((credit, index) => <Card credit={credit} key={index} />) : null}
+        {cast.map((credit, index) => <Card credit={credit} key={index} />)}
       </List>
     </Container>
   )
 }
 
 const Card = ({ credit }) => {
-
   return (
     <ListItem>
       <Link to={`/person/${credit.id}`}>
