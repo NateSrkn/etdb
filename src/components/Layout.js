@@ -11,5 +11,13 @@ export const Section = styled.section`
 
   ${props => props.hero && css`
     display: flex;
+
+    @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
+      flex-direction: column;
+    }
   `}
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
+    padding: 1.5rem 15px;
+  }
 `

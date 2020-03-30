@@ -27,6 +27,7 @@ const Info = styled.div`
 
   @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
     grid-column: 2/12;
+    grid-row: 2/2;
     font-size: 12px;
   }
 `

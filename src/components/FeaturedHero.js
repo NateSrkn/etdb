@@ -26,8 +26,8 @@ export const FeaturedHero = ({ type }) => {
 
   let settings = {
     infinite: true,
-    // autoplay: true,
-    // autoplaySpeed: 5000,
+    autoplay: true,
+    autoplaySpeed: 5000,
     arrows: false,
     className: 'featured-slider',
     speed: 500,
@@ -35,8 +35,11 @@ export const FeaturedHero = ({ type }) => {
     slidesToScroll: 1
   }
   return (
-    <Slider {...settings}>
-        {featured ? featured.results.map((feature, index) => <FeatureCard feature={feature} key={index} />) : null}
-    </Slider>
+    <React.Fragment>
+      <h3>Popular Now</h3>
+      <Slider {...settings}>
+          {featured ? featured.results.map((feature, index) => <FeatureCard feature={feature} key={index} />) : null}
+      </Slider>
+    </React.Fragment>
   )
 }
