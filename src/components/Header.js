@@ -14,7 +14,7 @@ const NavList = styled.ul`
 
   li {
       a {
-        padding: 15px;
+        padding: 10px;
         border-radius: 15px;
         transition: ease .3s;
         &:hover {

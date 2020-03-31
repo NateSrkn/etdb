@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { Title, SubTitle, Paragraph, Group } from '../components/Text'
 import { Root, GradientBackground, Section } from '../components/Layout'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { CastList } from '../components/CastList'
 
 const Media = styled.div`
@@ -36,6 +37,30 @@ const Info = styled.div`
   }
 `
 
+const Similar = styled.div`
+  max-height: 40rem;
+  overflow-y: scroll;
+  padding: 0 15px;
+  flex: 1;
+`
+
+const Card = styled.div`
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 10px 0;
+
+  div {
+    img {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+  }
+  div.info {
+    padding: 15px;
+  }
+  
+`
+
 export const MediaPage = ({ type }) => {
   let id = useParams()
   let [data, setData] = useState(null)
@@ -48,7 +73,7 @@ export const MediaPage = ({ type }) => {
           method: 'get'
         },
         params: {
-          append_to_response: 'credits'
+          append_to_response: 'credits,similar'
         }
       }
       try {
@@ -61,7 +86,18 @@ export const MediaPage = ({ type }) => {
           overview: response.overview,
           backdrop: response.backdrop_path,
           poster: response.poster_path,
-          credits: response.credits
+          credits: response.credits,
+          seasons: response.seasons,
+          networks: response.networks,
+          similar: response.similar.results.map(row => ({
+            id: row.id,
+            name: row.title || row.name,
+            overview: row.overview,
+            image: row.poster_path,
+          })),
+          production: response.production_companies,
+          last_epsiode: response.last_epsiode_to_air,
+          next_episode: response.next_episode_to_air
         })
       } catch (err) {
         console.log(err)
@@ -74,7 +110,7 @@ export const MediaPage = ({ type }) => {
   if(!data) return null
   return (
     <React.Fragment>
-      <Root style={{background: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop}) no-repeat`, backgroundSize: 'cover'}}>
+      <Root style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
         <GradientBackground>
           <Section hero>
             <Media>
@@ -95,6 +131,9 @@ export const MediaPage = ({ type }) => {
                   {data.overview}
                 </Paragraph>
               </Group>
+              {data.networks ? data.networks.map((row) => (
+                <Image src={row.logo_path} alt={row.name} key={row.name} />
+              )) : null}
             </Info>
           </Section>
         </GradientBackground>
@@ -105,7 +144,23 @@ export const MediaPage = ({ type }) => {
           <CastList cast={data.credits.cast} />
         </Section>
       </Root>
-      {/* {console.log(data)} */}
+      <Root>
+        <Section style={{display: 'flex'}}>
+          <Similar>
+            <h3>Similar {type === "movie" ? 'Movies' : 'Shows'}</h3>
+            {data.similar.map(row => (
+              <Link key={row.id} to={`/${type}/${row.id}`}>
+                <Card style={{display: 'flex'}}>
+                  <Image xsmall src={row.image} alt={row.name} />
+                  <div className="info">
+                    {row.name}
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </Similar>
+        </Section>
+      </Root>
     </React.Fragment>
   )
 }

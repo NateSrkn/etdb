@@ -57,7 +57,7 @@ export const PersonPage = () => {
   if(!person) return null
   return (
     <React.Fragment>
-      {console.log(person)}
+      {/* {console.log(person)} */}
         <Root>
           <GradientBackground>
             <Section hero>

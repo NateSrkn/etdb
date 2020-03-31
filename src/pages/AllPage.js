@@ -9,6 +9,10 @@ import styled from 'styled-components'
 const MediaGrid = styled.div`
   display: flex;
   flex-flow: wrap;
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
+    justify-content: center;
+  }
 `
 const MediaItem = styled.div`
   margin: 5px 5px;

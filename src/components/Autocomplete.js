@@ -84,7 +84,7 @@ export const Autocomplete = () => {
 }
 
 const Dropdown = ({results}) => {
-  console.log(results)
+  // console.log(results)
   return (
     <DropdownContainer>
       {results.map((result, index) => (

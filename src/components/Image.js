@@ -5,7 +5,7 @@ const Container = styled.div`
   width: 10rem;
   
   ${props => props.xsmall && css`
-    width: 3rem;
+    width: 4.5rem;
   `}
 
   img {

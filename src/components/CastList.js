@@ -18,6 +18,7 @@ const ListItem = styled.li`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   color: black;
+
   img {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
