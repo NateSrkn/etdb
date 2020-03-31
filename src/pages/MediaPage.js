@@ -58,7 +58,6 @@ const Card = styled.div`
   div.info {
     padding: 15px;
   }
-  
 `
 
 export const MediaPage = ({ type }) => {

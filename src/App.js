@@ -35,19 +35,19 @@ const App = () => {
           </Root>
         </Route>
         <Route path="/movie/:movieId">
-            <MediaPage type='movie' />
+            <MediaPage key=":movieId" type='movie' />
         </Route>
         <Route path="/tv/:tvId">
-            <MediaPage type='tv' />
+            <MediaPage key=":tvId" type='tv' />
         </Route>
         <Route path="/person/:personId">
-            <PersonPage />
+            <PersonPage key="person" />
         </Route>
         <Route path="/all/movies">
-            <AllPage key="movie" type="movie" />
+            <AllPage key="movies" type="movie" />
         </Route>
         <Route path="/all/shows">
-            <AllPage key="tv" type="tv" />
+            <AllPage key="shows" type="tv" />
         </Route>
       </Switch>
     </div>

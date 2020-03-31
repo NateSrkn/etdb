@@ -13,13 +13,17 @@ export const Section = styled.section`
   margin: 0 auto;
   padding: 1.5rem 0;
 
+  ${props => props.flex && css`
+    display: flex;
+
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
+    flex-direction: column;
+  }
+  `}
   ${props => props.hero && css`
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-
-    @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
-      ${'' /* flex-direction: column; */}
-    }
   `}
 
   @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
