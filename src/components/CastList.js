@@ -15,7 +15,22 @@ const List = styled.ul`
 const ListItem = styled.li`
   flex: 0;
   margin: 0 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: black;
+  img {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+  div {
+    font-weight: 600;
+  }
 ` 
+
+const Info = styled.div`
+  font-size: 14px;
+  padding: 5px 5px 15px 5px;
+`
 export const CastList = ({cast}) => {
   if(!cast) return null
   return (
@@ -31,9 +46,11 @@ const Card = ({ credit }) => {
   return (
     <ListItem>
       <Link to={`/person/${credit.id}`}>
-        <Image rounded small src={credit.profile_path || credit.poster_path} alt={credit.name || credit.title} />
-        <div>{credit.name}</div>
-        {credit.character}
+        <Image small src={credit.profile_path || credit.poster_path} alt={credit.name || credit.title} />
+        <Info>
+          <div>{credit.name}</div>
+          <div style={{fontWeight: 'normal', fontSize: '14px'}}>{credit.character}</div>
+        </Info>
       </Link>
     </ListItem>
   )

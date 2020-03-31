@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 const Container = styled.div`
-  width: ${props => props.small ? '8rem' : '10rem'};
+  width: 10rem;
   
   ${props => props.xsmall && css`
     width: 3rem;

@@ -101,6 +101,7 @@ export const MediaPage = ({ type }) => {
       </Root>
       <Root>
         <Section>
+          <h3>Cast</h3>
           <CastList cast={data.credits.cast} />
         </Section>
       </Root>
