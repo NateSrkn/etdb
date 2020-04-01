@@ -37,7 +37,7 @@ export const FeaturedHero = ({ type }) => {
   if(!featured) return null
   return (
     <React.Fragment>
-      <h3>Popular Now</h3>
+      <h3 style={{color: 'white'}}>Popular Now</h3>
       <Slider {...settings}>
           {featured.results.map((feature, index) => <FeatureCard feature={feature} key={index} />)}
       </Slider>

@@ -6,12 +6,17 @@ import styled from 'styled-components'
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
+    flex-direction: column;
+  }
 `
 
 const NavList = styled.ul`
   display: flex;
   list-style-type: none;
 
+  flex: 1;
   li {
       a {
         padding: 10px;
@@ -32,22 +37,30 @@ const NavList = styled.ul`
 export const Header = () => {
   return (
     <Container className="header">
-      <Link to="/" className="logo">
-        Logo
-      </Link>
-      <NavList className="nav-items">
-        <li className="item">
-          <NavLink to="/all/movies">
-            Movies
-          </NavLink>
-        </li>
-        <li className="item">
-          <NavLink to="/all/shows">
-            TV Shows
-          </NavLink>
-        </li>
-      </NavList>
-      {/* <Autocomplete /> */}
+      <div style={{display: 'flex', width: '100%'}}>
+        <div>
+          <Link to="/" className="logo" style={{flex: '1'}}>
+            Logo
+          </Link>
+        </div>
+        <div style={{margin: '0 auto'}}>
+        <NavList className="nav-items">
+          <li className="item">
+            <NavLink to="/all/movies">
+              Movies
+            </NavLink>
+          </li>
+          <li className="item">
+            <NavLink to="/all/shows">
+              TV Shows
+            </NavLink>
+          </li>
+        </NavList>
+
+        </div>
+      </div>
+
+      <Autocomplete />
     </Container>
   )
 }

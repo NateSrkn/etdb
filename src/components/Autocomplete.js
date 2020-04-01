@@ -1,14 +1,26 @@
 import React, { useState } from 'react'
-import { TextInput } from './TextInput'
 import { call } from '../api/apiCall'
 import { Image } from './Image'
 import { MULTI_SEARCH_ENDPOINT } from '../api/endpoints'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-
 const SearchContainer = styled.div`
   position: relative;
+`
+
+const Input = styled.input`
+  width: 25rem;
+  padding: 10px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  flex: 1;
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
+    margin-top: 15px;
+    width: 100%;
+  }
 `
 
 const DropdownContainer = styled.ul`
@@ -18,14 +30,15 @@ const DropdownContainer = styled.ul`
   width: 100%;
   overflow-y: scroll;
   position: absolute;
-  top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  top: 100%;
   left: 0;
 `
 
 const DropdownItem = styled.li`
   display: flex;
-  padding: 5px 0;
-  border: 1px solid green;
+  padding: 0px 0;
 `
 
 const Media = styled.div`
@@ -75,26 +88,48 @@ export const Autocomplete = () => {
     })))
   }
 
+  const onBlur = () => {
+    setQuery('')
+
+    setTimeout(() => {
+      setSearchData([])
+    }, 100)
+  }
+
   return (
     <SearchContainer className="search">
-      <TextInput placeholder="Search Entertainment" onChange={handleChange} onKeyUp={listenForInput} value={query} typeahead />
+      <Input type="text" placeholder="Search Entertainment"  onChange={handleChange} onKeyUp={listenForInput} onBlur={() => onBlur()} value={query} />
       {searchData ? <Dropdown results={searchData} /> : null}
     </SearchContainer>
   )
 }
 
 const Dropdown = ({results}) => {
-  // console.log(results)
+  const displayTitle = (type) => {
+    switch (type) {
+      case 'movie':
+        return 'Movie'
+      case 'tv':
+        return 'Show'
+      case 'person':
+        return 'Person'
+      default:
+        return ''
+    }
+  }
   return (
     <DropdownContainer>
-      {results.map((result, index) => (
-        <Link to={`/${result.type}/${result.id}`}>
-          <DropdownItem key={index}>
+      {results.map(result => (
+        <Link to={`/${result.type}/${result.id}`} key={result.id} >
+          <DropdownItem>
             <Media>
               <Image xsmall src={result.image} alt={result.name} />
             </Media>
             <Content>
-              {result.type} - {result.name}
+              <div style={{color: 'grey', fontSize: 12}}>
+                {displayTitle(result.type)}
+              </div>
+              <div>{result.name}</div>
             </Content>
           </DropdownItem>
         </Link>

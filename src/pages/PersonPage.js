@@ -85,14 +85,16 @@ export const PersonPage = () => {
         </Root>
         <Root>
           <Section flex>
+            {person.movie_credits.length > 0 ?      
             <div>
               <h3>Movies</h3>
               <MediaCredits credits={person.movie_credits} />
-            </div>
+            </div> : null}
+            {person.tv_credits.length > 0 ?      
             <div>
               <h3>Shows</h3>
               <MediaCredits credits={person.tv_credits} />
-            </div>
+            </div> : null}
           </Section>
         </Root>
     </React.Fragment>

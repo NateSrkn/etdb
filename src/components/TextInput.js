@@ -1,20 +1,11 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const Container = styled.input`
   padding: 10px;
   border: none;
-  box-shadow: 7px 7px 26px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-
-  ${props => props.typeahead && css`
-    position: relative;
-    width: 20rem;
-
-    .search-results {
-      position: absolute;
-    }
-  `}
 `
 
 export const TextInput = ({...props}) => {

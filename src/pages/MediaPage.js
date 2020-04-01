@@ -143,6 +143,7 @@ export const MediaPage = ({ type }) => {
           <CastList cast={data.credits.cast} />
         </Section>
       </Root>
+      {data.similar.length > 0 ? 
       <Root>
         <Section style={{display: 'flex'}}>
           <Similar>
@@ -159,7 +160,7 @@ export const MediaPage = ({ type }) => {
             ))}
           </Similar>
         </Section>
-      </Root>
+      </Root> : null} 
     </React.Fragment>
   )
 }
