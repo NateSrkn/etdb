@@ -93,18 +93,20 @@ export const MediaPage = ({ type }) => {
               <h3 className="section-title">Seasons</h3>
                 <ul className="vertical-scroll">
                   {data.seasons.map(row => (
-                    <li className="vertical-card" key={row.id} style={{display: 'flex'}}>
-                      <Image small src={row.poster_path} alt={row.name} flex />
-                      <div className="card-info">
-                        <h3 className="title">{row.name}</h3>
-                        <div className="group" style={{display: 'flex'}}>
-                          <div className="sub-group">
-                            <div className="sub-title dark">Episodes</div>
-                            <div>{row.episode_count}</div>
-                          </div>
-                          <div className="sub-group">
-                            <div className="sub-title dark">Air Date</div>
-                            <div>{row.air_date}</div>
+                    <li className="vertical-card" key={row.id}>
+                      <div style={{display: 'flex'}}>
+                        <Image small src={row.poster_path} alt={row.name} flex />
+                        <div className="card-info">
+                          <h3 className="title">{row.name}</h3>
+                          <div className="group" style={{display: 'flex'}}>
+                            <div className="sub-group">
+                              <div className="sub-title dark">Episodes</div>
+                              <div>{row.episode_count}</div>
+                            </div>
+                            <div className="sub-group">
+                              <div className="sub-title dark">Air Date</div>
+                              <div>{row.air_date}</div>
+                            </div>
                           </div>
                         </div>
                       </div>
