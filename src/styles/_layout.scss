@@ -1,0 +1,35 @@
+.root {
+  .section {
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: 1.5rem 0;
+
+    @media screen and (max-width: $mobile-breakpoint) {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    &.flex {
+      display: flex;
+
+      .sub-section {
+        flex: 1;
+        margin: 0 10px;
+      }
+
+      @media screen and (max-width: $mobile-breakpoint) {
+        flex-direction: column;
+      }
+    }
+
+    &.grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+}
+
+.gradient-bg {
+  background-image: linear-gradient(to right, rgba(20.78%, 24.31%, 30.98%, 1.00) 150px, rgba(29.80%, 31.76%, 36.08%, 0.84) 100%);
+  color: white;
+}
