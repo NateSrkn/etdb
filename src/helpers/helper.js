@@ -4,3 +4,7 @@ export const truncateString = (str, num) => {
   }
   return str.trim().slice(0, num) + '...'
 }
+
+export const ratingPercent = (num) => {
+  return Math.round((num/10)*100) + '%'
+}

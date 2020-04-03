@@ -1,166 +1,145 @@
 import React, { useState, useEffect } from 'react'
-import { call } from '../api/apiCall'
-import { FETCH_SINGULAR_ENDPOINT } from '../api/endpoints'
 import { Image } from '../components/Image'
 import { useParams } from 'react-router-dom'
-import { Title, SubTitle, Paragraph, Group } from '../components/Text'
-import { Root, GradientBackground, Section } from '../components/Layout'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { CastList } from '../components/CastList'
-
-const Media = styled.div`
-  grid-column: 1/8;
-  grid-row: 1/1;
-
-  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
-    grid-column: 2/12;
-  }
-`
-
-const Info = styled.div`
-  color: white;
-  grid-column: 5/-5;
-  grid-row: 1/1;
-  padding: 15px;
-  font-size: .85rem;
-
-  h3 {
-    font-size: 24px;
-    padding-bottom: 10px;
-  }
-  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
-    grid-column: 2/12;
-    grid-row: 2/2;
-    padding: 10px 0;
-    font-size: 12px;
-  }
-`
-
-const Similar = styled.div`
-  max-height: 40rem;
-  overflow-y: scroll;
-  padding: 0 15px;
-  flex: 1;
-`
-
-const Card = styled.div`
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  margin: 10px 0;
-
-  div {
-    img {
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
-  }
-  div.info {
-    padding: 15px;
-  }
-`
+import { fetchMedia } from '../api/functions'
+import { ratingPercent } from '../helpers/helper'
 
 export const MediaPage = ({ type }) => {
   let id = useParams()
   let [data, setData] = useState(null)
 
   useEffect(() => {
-    const fetch = async () => {
-      let options = {
-        base: {
-          url: FETCH_SINGULAR_ENDPOINT(type, id.movieId || id.tvId),
-          method: 'get'
-        },
-        params: {
-          append_to_response: 'credits,similar'
-        }
-      }
-      try {
-        let response = await call(options)
-        // console.log(response)
-        setData({
-          name: response.name || response.title,
-          released: response.release_date || response.first_air_date,
-          genres: response.genres,
-          overview: response.overview,
-          backdrop: response.backdrop_path,
-          poster: response.poster_path,
-          credits: response.credits,
-          seasons: response.seasons,
-          networks: response.networks,
-          similar: response.similar.results.map(row => ({
-            id: row.id,
-            name: row.title || row.name,
-            overview: row.overview,
-            image: row.poster_path,
-          })),
-          production: response.production_companies,
-          last_epsiode: response.last_epsiode_to_air,
-          next_episode: response.next_episode_to_air
-        })
-      } catch (err) {
-        console.log(err)
-        setData([])
-      }
+    const fetchData = async () => {
+      setData(await fetchMedia(type, id.movieId || id.tvId))
     }
-    fetch()
+    fetchData()
   }, [type, id])
 
   if(!data) return null
   return (
     <React.Fragment>
-      <Root style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
-        <GradientBackground>
-          <Section hero>
-            <Media>
-              <Image hero rounded src={data.poster} alt={data.name}/>
-            </Media>
-            <Info>
-              <Group>
-                <Title>{data.name}</Title>
-                <Group>
-                  <SubTitle>
-                    Released
-                  </SubTitle>
-                  <Paragraph>
-                    {data.released}
-                  </Paragraph>
-                </Group>
-                <Paragraph style={{paddingTop: '10px'}}>
+    {console.log(data)}
+      <div className="root" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+        <div className="gradient-bg">
+          <section className="section flex hero">
+            <div className="hero-media">
+              <Image hero rounded src={data.poster} alt={data.name} />
+            </div>
+            <div className="hero-info">
+              {data.tagline ? <div className="sub-title">{data.tagline}</div> : null}
+              <h2 className="media-title">{data.name}</h2>    
+              <div className="group" style={{display: 'flex'}}>
+                <div className="sub-group">
+                  <div className="sub-title">Rating</div>
+                  <div>{ratingPercent(data.rating)}</div>
+                </div>
+                <div className="sub-group">
+                  <h4 className="sub-title">Release Date</h4>
+                  <time dateTime={data.released}>{data.released}</time>
+                </div>
+              </div>
+              <div className="group">
+                <div className="sub-title">Genre</div>
+                <div>{data.genres.map(row => row.name).join(', ')}</div>
+              </div>
+              <div className="group">
+                <h4 className="sub-title">Overview</h4>
+                <p className="overview">
                   {data.overview}
-                </Paragraph>
-              </Group>
-              {data.networks ? data.networks.map((row) => (
-                <Image src={row.logo_path} alt={row.name} key={row.name} />
-              )) : null}
-            </Info>
-          </Section>
-        </GradientBackground>
-      </Root>
-      <Root>
-        <Section>
-          <h3>Cast</h3>
-          <CastList cast={data.credits.cast} />
-        </Section>
-      </Root>
-      {data.similar.length > 0 ? 
-      <Root>
-        <Section style={{display: 'flex'}}>
-          <Similar>
-            <h3>Similar {type === "movie" ? 'Movies' : 'Shows'}</h3>
-            {data.similar.map(row => (
-              <Link key={row.id} to={`/${type}/${row.id}`}>
-                <Card style={{display: 'flex'}}>
-                  <Image xsmall src={row.image} alt={row.name} />
-                  <div className="info">
-                    {row.name}
+                </p>
+              </div>
+              {data.seasons ? 
+                <div className="group" style={{display: 'flex'}}>
+                  <div className="sub-group">
+                    <div className="sub-title">Seasons</div>
+                    <div>{data.seasons.length}</div>
                   </div>
-                </Card>
-              </Link>
-            ))}
-          </Similar>
-        </Section>
-      </Root> : null} 
+                  {data.last_episode ? 
+                    <div className="sub-group">
+                      <div className="sub-title">Last Episode</div>
+                      <div>{data.last_episode.air_date}</div>
+                    </div>
+                  : null}
+                  {data.next_episode ? 
+                    <div className="sub-group">
+                      <div className="sub-title">Next Episode</div>
+                      <div>{data.next_episode.air_date}</div>
+                    </div>
+                  : null}
+                </div>
+              : null} 
+              {data.creators ? 
+                <div className="group">
+                  <div className="sub-title">Created by</div>
+                  <div>{data.creators.map(creator => creator.name).join(', ')}</div>
+                </div>
+              : null}
+            </div>
+          </section>
+        </div>
+      </div>
+      <div className="root">
+        <div className="section">
+          <h3 className="section-title">Cast</h3>
+          <CastList cast={data.cast} />
+        </div>
+      </div>
+      <div className="root">
+        <div className="section flex">
+          {data.seasons ? 
+            <div className="sub-section">
+              <h3 className="section-title">Seasons</h3>
+                <ul className="vertical-scroll">
+                  {data.seasons.map(row => (
+                    <li className="vertical-card" key={row.id} style={{display: 'flex'}}>
+                      <Image small src={row.poster_path} alt={row.name} flex />
+                      <div className="card-info">
+                        <h3 className="title">{row.name}</h3>
+                        <div className="group" style={{display: 'flex'}}>
+                          <div className="sub-group">
+                            <div className="sub-title dark">Episodes</div>
+                            <div>{row.episode_count}</div>
+                          </div>
+                          <div className="sub-group">
+                            <div className="sub-title dark">Air Date</div>
+                            <div>{row.air_date}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+            </div>
+          : null}
+          <div className="sub-section">
+            <h3 className="section-title">{type === 'movie' ? 'Similar Movies'  : 'Similar Shows'}</h3>
+              <ul className="vertical-scroll">
+                {data.similar.map(row => (
+                  <li className="vertical-card" key={row.id}>
+                    <Link to={`/${type}/${row.id}`} style={{display: 'flex'}}>
+                      <Image small src={row.image} alt={row.name} flex />
+                      <div className="card-info">
+                        <h3 className="title">{row.name}</h3>
+                        <div className="group" style={{display: 'flex'}}>
+                          <div className="sub-group">
+                            <div className="sub-title dark">Rating</div>
+                            <div>{ratingPercent(row.rating)}</div>
+                          </div>
+                          <div className="sub-group">
+                            <div className="sub-title dark">Release Date</div>
+                            <div>{row.released}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+          </div>
+        </div>
+      </div>
     </React.Fragment>
   )
 }

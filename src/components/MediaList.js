@@ -7,22 +7,6 @@ import styled from 'styled-components'
 
 const Container = styled.div``
 
-const List = styled.ul`
-  padding: 20px 0;
-  display: flex;
-  overflow-y: scroll;
-  list-style: none;
-`
-
-const ListItem = styled.li`
-  flex: 1;
-  margin: 5px 10px;
-
-  &:last-child {
-    padding: 0 30px 0 0;
-  }
-`
-
 const ListHeader = styled.h3``
 
 export const MediaList = ({ type, isLatest }) => {
@@ -51,19 +35,19 @@ export const MediaList = ({ type, isLatest }) => {
   return (
     <Container>
       <ListHeader>{type === "movie" ? "Movies" : "Shows"}</ListHeader>
-      <List>
+      <ul className="grid-shelf">
         {data.map((item, index) => <Card type={type} data={item} key={index} />)}
-      </List>
+      </ul>
     </Container>
   )
 }
 
 const Card = ({type, data}) => {
   return(
-    <ListItem>
+    <li className="grid-item">
       <Link to={`/${type}/${data.id}`}>
         <Image rounded src={data.image} alt={data.name} />
       </Link>
-    </ListItem>
+    </li>
   )
 }

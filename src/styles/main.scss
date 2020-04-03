@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
 @import './variables';
+@import './layout';
 // @import './header';
 // @import './carousel';
 // @import './typeahead';
@@ -9,7 +8,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Source Sans Pro';
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   scroll-behavior: smooth;
 }
 
@@ -32,4 +31,188 @@ button {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
+
+.img-container {
+  width: 10rem;
+
+  &.rounded {
+    img {
+      border-radius: 20px;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+.extra {
+  grid-column: 9/13;
+
+  .title {
+    color: white;
+  }
+
+  @media screen and (max-width: $mobile-breakpoint) {
+    grid-column: 2/12;
+  }
+}
+
+.media-info {
+  // background-color: white;
+  // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  // border-radius: 20px;
+  grid-column: 5/-5;
+  grid-row: 1/1;
+  padding: 15px;
+  font-size: .85rem;
+  display: flex;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+  max-height: 34rem;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  .scroll-card {
+    display: flex;
+    scroll-snap-align: start;
+    background: white;
+    margin: 5px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .card-sub-info {
+      color: $grey;
+      font-size: 12px;
+    }
+    .img-container {
+      width: 4rem;
+      img {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+    }
+    .card-info {
+      padding: 10px;
+    }
+  }
+}
+
+.extra-info {
+  flex: 1;
+}
+.vertical-scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  max-height: 405px;
+
+  .vertical-card {
+    background: white;
+    border-radius: 10px;
+    margin: 5px;
+    font-size: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    scroll-snap-align: start;
+
+    a {display: flex;}
+
+    .img-container {
+      display: flex;
+
+      img {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+    }
+
+    .card-info {
+      text-align: left;
+      padding: 15px;
+    }
+  }
+}
+
+.card-info {
+  color: $black;
+  text-align: center;
+
+  .person-name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .character-name {
+    font-size: 12px;
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+.grid-shelf {
+  margin: 10px 0;
+  display: grid;
+  grid-auto-columns: 155px;
+  grid-auto-flow: column;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  grid-gap: 15px;
+  overflow-y: hidden;
+  overflow-x: auto;
+
+  .grid-item {
+    scroll-snap-align: start;
+  }
+}
+
+
+.hero {
+
+
+  .hero-info {
+    padding: 15px;
+    font-size: 14px;
+    max-width: 400px;
+
+  }
+
+  .extra-info {
+    padding: 15px;
+  }
+}
+
+.grid-info {
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+
+.group {
+  margin: 10px 0;
+  .sub-group {
+    margin-right: 10px;
+  }
+}
+
+.sub-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: $light-grey;
+  margin: 3px 0;
+
+  &.dark {
+    color: $black;
+  }
 }
