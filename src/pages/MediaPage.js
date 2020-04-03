@@ -20,7 +20,6 @@ export const MediaPage = ({ type }) => {
   if(!data) return null
   return (
     <React.Fragment>
-    {console.log(data)}
       <div className="root" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
         <div className="gradient-bg">
           <section className="section flex hero">
@@ -94,7 +93,7 @@ export const MediaPage = ({ type }) => {
                 <ul className="vertical-scroll">
                   {data.seasons.map(row => (
                     <li className="vertical-card" key={row.id}>
-                      <div style={{display: 'flex'}}>
+                      <div className="flex-card">
                         <Image small src={row.poster_path} alt={row.name} flex />
                         <div className="card-info">
                           <h3 className="title">{row.name}</h3>

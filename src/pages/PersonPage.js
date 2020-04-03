@@ -4,6 +4,7 @@ import { call } from '../api/apiCall'
 import { FETCH_SINGULAR_ENDPOINT } from '../api/endpoints'
 import { Image } from '../components/Image'
 import { Link } from 'react-router-dom'
+import { ratingPercent } from '../helpers/helper'
 
 export const PersonPage = () => {
   let id = useParams()
@@ -60,12 +61,12 @@ export const PersonPage = () => {
         <div className="root">
           <div className="section flex">
             {person.movie_credits.length > 0 ?      
-            <div style={{flex: 1}}>
+            <div className="sub-section">
               <h3>Movies</h3>
               <MediaCredits credits={person.movie_credits} />
             </div> : null}
             {person.tv_credits.length > 0 ?      
-            <div style={{flex: 1}}>
+            <div className="sub-section">
               <h3>Shows</h3>
               <MediaCredits credits={person.tv_credits} />
             </div> : null}
@@ -81,9 +82,21 @@ const MediaCredits = ({ credits }) => {
       {credits.map(row => (
         <li className="vertical-card" key={row.id}>
           <Link to={`/${row.media_type}/${row.id}`}>
-            <Image small src={row.poster_path} alt={row.title || row.name} />
+            <Image src={row.poster_path} alt={row.name || row.title} flex small/>
             <div className="card-info">
-              {row.title || row.name}
+              <h3 className="title">{row.name || row.title}</h3>
+              <div className="group" style={{display: 'flex'}}>
+                <div className="sub-group">
+                  <div className="sub-title dark">Rating</div>
+                  <div className="rating">{ratingPercent(row.vote_average)}</div>
+                </div>
+                <div className="sub-group">
+                  <div className="sub-title dark">Released</div>
+                  <time dateTime={row.release_date || row.first_air_date}>
+                  {row.release_date || row.first_air_date}
+                  </time>
+                </div>
+              </div>
             </div>
           </Link>
         </li>
