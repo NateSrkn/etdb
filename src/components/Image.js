@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 
 const Container = styled.div`
   width: 10rem;
+  height: auto;
 
   img {
     max-height: 100%;
@@ -11,8 +12,9 @@ const Container = styled.div`
 
   ${props => props.flex && css`
     display: flex;
+    align-items: flex-start;
   `}
-  
+
   ${props => props.small && css`
     width: 5rem;
   `}
