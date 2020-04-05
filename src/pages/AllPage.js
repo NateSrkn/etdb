@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Root, Section } from '../components/Layout'
 import { Link } from 'react-router-dom'
 import { Image } from '../components/Image'
-import { call } from '../api/apiCall'
-import { FETCH_BULK_ENDPOINT } from '../api/endpoints'
 import styled from 'styled-components'
+import { fetchBulk } from '../api/functions'
 
 const MediaGrid = styled.div`
   display: flex;
@@ -23,52 +21,25 @@ export const AllPage = ({ type }) => {
   let [page, setPage] = useState(1)
   let [totalPages, setTotalPages] = useState(null)
 
-  const fetchData = async () => {
-    let options = {
-      base: {
-        url: FETCH_BULK_ENDPOINT(type),
-        method: 'get'
-      },
-      params: {
-        page: page,
-        region: 'US',
-        include_adult: false
-      }
-    }
-    try {
-      let response = await call(options)
-      setData(data.concat(response.results.map(row => ({
-        id: row.id,
-        name: row.title || row.name,
-        image: row.poster_path,
-        released: row.release_date
-      }))))
-      setTotalPages(response.total_pages)
-    } catch (err) {
-      console.log(err)
-      setData(null)
-    }
-  }
-
   useEffect(() => {
-    fetchData()
-  }, [])
-
-
+    fetchBulk(type, page).then(response => {
+      setData(d => d.concat(response.results))
+      setTotalPages(response.total_pages)
+    })
+  }, [type, page])
 
   const onScrollToBottom = (event) => {
     event.preventDefault()
     if(page < totalPages) {
       setPage(page += 1)
-      fetchData()
     }
   }
 
   if(data.length < 0) return null
   return (
     <React.Fragment>
-      <Root>
-        <Section>
+      <div className="root">
+        <section className="section">
           <h3>
             {type === "movie" ? "All Movies" : "All Shows"}
           </h3>
@@ -81,13 +52,13 @@ export const AllPage = ({ type }) => {
               </MediaItem>
             ))}
           </MediaGrid>
-        </Section>
-      </Root>
-      <Root>
-        <Section style={{display: 'flex', justifyContent: 'center'}}>
+        </section>
+      </div>
+      <div className="root">
+        <section className="section" style={{display: 'flex', justifyContent: 'center'}}>
           <button onClick={(event) => onScrollToBottom(event)} style={{margin: '0 auto'}}>Find More</button>
-        </Section>
-      </Root>
+        </section>
+      </div>
     </React.Fragment>
   )
 }

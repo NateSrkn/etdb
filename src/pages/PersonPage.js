@@ -1,41 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { call } from '../api/apiCall'
-import { FETCH_SINGULAR_ENDPOINT } from '../api/endpoints'
 import { Image } from '../components/Image'
 import { Link } from 'react-router-dom'
 import { ratingPercent } from '../helpers/helper'
+import { fetchPerson } from '../api/functions'
 
 export const PersonPage = () => {
   let id = useParams()
   let [person, setPerson] = useState(null)
 
   useEffect(() => {
-    const fetchPerson = async () => {
-      let options = {
-        base: {
-          url: FETCH_SINGULAR_ENDPOINT('person', id.personId),
-          method: 'get'
-        },
-        params: {
-          append_to_response: 'combined_credits'
-        }
-      }
-
-      let personData = await call(options)
-      setPerson({
-        name: personData.name,
-        image: personData.profile_path,
-        birthday: personData.birthday,
-        deathday: personData.deathday,
-        birthplace: personData.place_of_birth,
-        movie_credits: personData.combined_credits.cast.filter(row => row.media_type === 'movie'),
-        tv_credits: personData.combined_credits.cast.filter(row => row.media_type === 'tv'),
-        bio: personData.biography,
-      })
-    }
-
-    fetchPerson()
+    fetchPerson(id.personId).then(result => setPerson(result))
   }, [id])
   if(!person) return null
   return (
@@ -51,7 +26,7 @@ export const PersonPage = () => {
                   <div className="group">
                     <div className="sub-title">Overview</div>
                     <p className="overview">
-                      {person.bio}
+                      {person.overview}
                     </p>
                   </div>
                 </div>

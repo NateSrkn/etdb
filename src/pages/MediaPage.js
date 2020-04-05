@@ -5,16 +5,14 @@ import { Link } from 'react-router-dom'
 import { CastList } from '../components/CastList'
 import { fetchMedia } from '../api/functions'
 import { ratingPercent } from '../helpers/helper'
+import { Button } from '../components/Button'
 
 export const MediaPage = ({ type }) => {
   let id = useParams()
   let [data, setData] = useState(null)
 
   useEffect(() => {
-    const fetchData = async () => {
-      setData(await fetchMedia(type, id.movieId || id.tvId))
-    }
-    fetchData()
+      fetchMedia(type, id.movieId || id.tvId).then(result => setData(result))
   }, [type, id])
 
   if(!data) return null
@@ -74,6 +72,11 @@ export const MediaPage = ({ type }) => {
                   <div className="sub-title">Created by</div>
                   <div>{data.creators.map(creator => creator.name).join(', ')}</div>
                 </div>
+              : null}
+              {data.collection ? 
+                <Button link={`/collection/${data.collection.id}`}>
+                  {data.collection.name}
+                </Button>
               : null}
             </div>
           </section>

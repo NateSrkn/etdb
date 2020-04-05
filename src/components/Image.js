@@ -35,8 +35,12 @@ const Container = styled.div`
   `}
 `
 
-export const Image = ({ children, src, alt, ...props }) => (
-    <Container {...props} className="img-container">
-      <img src={src ? `https://image.tmdb.org/t/p/w500/${src}` : `https://via.placeholder.com/500x750.png?text=${alt}`} alt={alt} />
-    </Container>
-)
+
+export const Image = ({ src, alt, ...props }) => {
+
+    return (
+      <Container {...props} className="img-container">
+        <img src={src ? `https://image.tmdb.org/t/p/w500/${src}` : `https://via.placeholder.com/500x750.png?text=${alt}`} alt={alt} />
+      </Container>
+    )
+}

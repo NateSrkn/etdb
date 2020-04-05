@@ -21,3 +21,8 @@ export const FETCH_TRENDING_ENDPOINT = (type) => {
   let endpoint = `${baseUrl}/trending/${type}/week`
   return endpoint
 }
+
+export const FETCH_COLLECTIONS_ENDPOINT = (id) => {
+  let endpoint = `${baseUrl}/collection/${id}`
+  return endpoint
+}

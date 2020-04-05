@@ -44,29 +44,30 @@ h1, h2, h3, h4, h5, h6 {
   scroll-snap-type: y mandatory;
   max-height: 405px;
 
-  .vertical-card {
-    background: white;
-    border-radius: 10px;
-    margin: 5px;
-    font-size: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    scroll-snap-align: start;
+}
 
-    a, .flex-card {display: flex;align-content: flex-start;}
+.vertical-card {
+  background: white;
+  border-radius: 10px;
+  margin: 5px;
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  scroll-snap-align: start;
 
-    .img-container {
-      display: flex;
+  a, .flex-card {display: flex;align-content: flex-start;}
 
-      img {
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-      }
+  .img-container {
+    display: flex;
+
+    img {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
     }
+  }
 
-    .card-info {
-      text-align: left;
-      padding: 15px;
-    }
+  .card-info {
+    text-align: left;
+    padding: 15px;
   }
 }
 
@@ -105,15 +106,11 @@ ul {
 
 
 .hero {
-
-
   .hero-info {
     padding: 15px;
     font-size: 14px;
     max-width: 400px;
-
   }
-
   .extra-info {
     padding: 15px;
   }

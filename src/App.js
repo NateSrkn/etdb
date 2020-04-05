@@ -6,6 +6,7 @@ import { MediaList } from './components/MediaList'
 import { MediaPage } from './pages/MediaPage'
 import { AllPage } from './pages/AllPage'
 import { PersonPage } from './pages/PersonPage'
+import { CollectionPage } from './pages/CollectionPage'
 import { Section, Root } from './components/Layout';
 import './styles/main.scss';
 
@@ -48,6 +49,9 @@ const App = () => {
         </Route>
         <Route path="/all/shows">
             <AllPage key="shows" type="tv" />
+        </Route>
+        <Route path="/collection/:collectionId">
+          <CollectionPage key="collection" />
         </Route>
       </Switch>
     </div>
