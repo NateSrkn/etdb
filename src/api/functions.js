@@ -145,7 +145,6 @@ export const fetchTrending = async (type) => {
 
   try {
     let response = await call(options)
-    console.log(response)
     return response.results.map(row => ({
       id: row.id,
       name: row.title || row.name,

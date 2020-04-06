@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 export const Button = ({ children, link, ...props}) => {
   if(link) {
     return (
-      <Link to={link}>
+      <Link to={link} {...props}>
         <Wrapper>
           {children}
         </Wrapper>
@@ -27,7 +27,7 @@ export const Button = ({ children, link, ...props}) => {
     )
   } else {
     return (
-      <Wrapper>
+      <Wrapper {...props}>
         {children}
       </Wrapper>
     )

@@ -117,6 +117,7 @@ export const MediaPage = ({ type }) => {
                 </ul>
             </div>
           : null}
+          {data.similar.length > 0 ? 
           <div className="sub-section">
             <h3 className="section-title">{type === 'movie' ? 'Similar Movies'  : 'Similar Shows'}</h3>
               <ul className="vertical-scroll">
@@ -142,6 +143,7 @@ export const MediaPage = ({ type }) => {
                 ))}
               </ul>
           </div>
+          : null}
         </div>
       </div>
     </React.Fragment>

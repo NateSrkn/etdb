@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Image } from '../components/Image'
 import styled from 'styled-components'
 import { fetchBulk } from '../api/functions'
+import { Button } from '../components/Button'
 
 const MediaGrid = styled.div`
   display: flex;
@@ -56,7 +57,7 @@ export const AllPage = ({ type }) => {
       </div>
       <div className="root">
         <section className="section" style={{display: 'flex', justifyContent: 'center'}}>
-          <button onClick={(event) => onScrollToBottom(event)} style={{margin: '0 auto'}}>Find More</button>
+          <Button onClick={(event) => onScrollToBottom(event)} style={{margin: '0 auto', width: 150}}>Find More</Button>
         </section>
       </div>
     </React.Fragment>

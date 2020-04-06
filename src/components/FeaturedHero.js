@@ -21,15 +21,15 @@ export const FeaturedHero = ({ type }) => {
     className: 'featured-slider',
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    dots: true
   }
   if(!featured) return null
   return (
     <React.Fragment>
-          <h3 style={{color: 'white'}}>Popular Now</h3>
-          <Slider {...settings}>
-              {featured.map((feature, index) => <FeatureCard feature={feature} key={index} />)}
-          </Slider>
+        <Slider {...settings}>
+            {featured.map((feature, index) => <FeatureCard feature={feature} key={index} />)}
+        </Slider>
     </React.Fragment>
   )
 }

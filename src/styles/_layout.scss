@@ -1,7 +1,7 @@
 .root {
   position: relative;
   &.feature {
-    height: 500px;
+    height: 50rem;
     display: flex;
     
     .gradient-bg {
@@ -13,7 +13,7 @@
     }
 
     @media screen and (max-width: $mobile-breakpoint) {
-      height: auto;
+      height: 20rem;
     }
   }
   .section {
