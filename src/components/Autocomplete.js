@@ -3,56 +3,11 @@ import { call } from '../api/apiCall'
 import { Image } from './Image'
 import { MULTI_SEARCH_ENDPOINT } from '../api/endpoints'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-
-const SearchContainer = styled.div`
-  position: relative;
-`
-
-const Input = styled.input`
-  width: 25rem;
-  padding: 10px;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  flex: 1;
-
-  @media screen and (max-width: ${props => props.theme.breakpoints.mobile}) {
-    margin-top: 15px;
-    width: 100%;
-  }
-`
-
-const DropdownContainer = styled.ul`
-  background: white;
-  list-style: none;
-  max-height: 400px;
-  width: 100%;
-  overflow-y: scroll;
-  position: absolute;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  top: 100%;
-  left: 0;
-`
-
-const DropdownItem = styled.li`
-  display: flex;
-  padding: 0px 0;
-`
-
-const Media = styled.div`
-
-`
-
-const Content = styled.div`
-  padding: 10px;
-  width: 100%;
-`
 
 export const Autocomplete = () => {
   let [query, setQuery] = useState('')
   let [searchData, setSearchData] = useState(null)
+  let [isExpanded, setIsExpanded] = useState(false)
 
   const handleChange = (event) => {
     setQuery(event.target.value)
@@ -96,11 +51,25 @@ export const Autocomplete = () => {
     }, 100)
   }
 
+  const expandSearch = () => {
+    let search = document.getElementById('main-search')
+    if(isExpanded) {
+      search.style.width = '0'
+      search.style.borderBottom = '1px solid transparent'
+      setIsExpanded(false)
+    } else {
+      search.style.width = '20rem'
+      search.style.borderBottom = '1px solid black'
+      setIsExpanded(true)
+    }
+  }
+
   return (
-    <SearchContainer className="search">
-      <Input type="text" placeholder="Search Entertainment"  onChange={handleChange} onKeyUp={listenForInput} onBlur={() => onBlur()} value={query} />
+    <div className="search-container">
+      <i onClick={() => expandSearch()} className="fas fa-search"></i>
+      <input type="text" id="main-search" placeholder="Search Entertainment"  onChange={handleChange} onKeyUp={listenForInput} onBlur={() => onBlur()} value={query} />
       {searchData ? <Dropdown results={searchData} /> : null}
-    </SearchContainer>
+    </div>
   )
 }
 
@@ -118,22 +87,22 @@ const Dropdown = ({results}) => {
     }
   }
   return (
-    <DropdownContainer>
+    <div className="dropdown-menu">
       {results.map(result => (
         <Link to={`/${result.type}/${result.id}`} key={result.id} >
-          <DropdownItem>
-            <Media>
-              <Image xsmall src={result.image} alt={result.name} />
-            </Media>
-            <Content>
-              <div style={{color: 'grey', fontSize: 12}}>
+          <div className="drop-item">
+            <div className="drop-media">
+              <Image small src={result.image} alt={result.name} />
+            </div>
+            <div className="drop-info">
+              <div className="sub-title">
                 {displayTitle(result.type)}
               </div>
               <div>{result.name}</div>
-            </Content>
-          </DropdownItem>
+            </div>
+          </div>
         </Link>
       ))}
-    </DropdownContainer>
+    </div>
   )
 }

@@ -4,7 +4,7 @@ import { Button } from './Button'
 
 export const FeatureCard = ({ feature }) => {
   return (
-    <div className="root feature" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${feature.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    <div className="root feature" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${feature.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'right'}}>
       <div className="gradient-bg" >
         <section className="section">
           <div className="hero">    

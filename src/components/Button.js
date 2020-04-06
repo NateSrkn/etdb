@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   height: 40px;
   border-radius: 10px;
   background-color: rgba(0,0,0,.5);  
+  backdrop-filter: blur(5px);
   color: white;
   justify-content: center;
   align-items: center;

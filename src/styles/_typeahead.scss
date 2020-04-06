@@ -1,27 +1,38 @@
-.search {
+.search-container {
   position: relative;
-
-
-  
-  input { 
-
-  
+  input {
+    width: 0;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    background: none;
+    color: black;
+    padding: 10px;
+    transition: ease 0.2s;
+    &::placeholder {
+      color: black;
+    }
   }
+}
 
-  .search-results {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    max-height: 500px;
-    overflow-y: scroll;
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  max-height: 50rem;
+  overflow-y: scroll;
+  background-color: rgba(255,255,255, 1);
+  color: black;
+  left: 0;
+  width: 100%;
 
-    .result {
-      display: flex;
+  .sub-title {
+    color: black;
+  }
+  .drop-item {
+    display: flex;
 
-      .image {
-        width: 5vw;
-      }
+    .drop-info {
+      padding: 10px;
     }
   }
 }

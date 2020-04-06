@@ -14,11 +14,7 @@ const App = () => {
   
   return (
     <div className="App">
-      <div className="root">
-        <section className="section">
-          <Header />
-        </section>
-      </div>
+      <Header />
       <Switch>
         <Route exact path="/">
           <FeaturedHero />
