@@ -1,4 +1,21 @@
 .root {
+  position: relative;
+  &.feature {
+    height: 500px;
+    display: flex;
+    
+    .gradient-bg {
+      display: flex;
+      align-items: center;
+      .section {
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: $mobile-breakpoint) {
+      height: auto;
+    }
+  }
   .section {
     max-width: 78rem;
     margin: 0 auto;
@@ -30,6 +47,8 @@
 }
 
 .gradient-bg {
-  background-image: linear-gradient(to right, rgba(20.78%, 24.31%, 30.98%, 1.00) 150px, rgba(29.80%, 31.76%, 36.08%, 0.84) 100%);
+  background-image: linear-gradient(to right, rgba(20.78%, 24.31%, 30.98%, .75) 150px, rgba(29.80%, 31.76%, 36.08%, 0.50) 100%);
   color: white;
+  height: 100%;
+  width: 100%;
 }

@@ -1,5 +1,5 @@
 import { call } from "./apiCall"
-import { FETCH_SINGULAR_ENDPOINT, FETCH_COLLECTIONS_ENDPOINT, FETCH_BULK_ENDPOINT } from "./endpoints"
+import { FETCH_SINGULAR_ENDPOINT, FETCH_COLLECTIONS_ENDPOINT, FETCH_BULK_ENDPOINT, FETCH_TRENDING_ENDPOINT } from "./endpoints"
 
 export const fetchMedia = async (type, id) => {
   let options = {
@@ -133,4 +133,32 @@ export const fetchCollections = async (id) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export const fetchTrending = async (type) => {
+  let options = {
+    base: {
+      url: FETCH_TRENDING_ENDPOINT(type),
+      method: 'get'
+    }
+  }
+
+  try {
+    let response = await call(options)
+    console.log(response)
+    return response.results.map(row => ({
+      id: row.id,
+      name: row.title || row.name,
+      overview: row.overview,
+      released: row.release_date || row.first_air_date,
+      poster: row.poster_path,
+      backdrop: row.backdrop_path,
+      rating: row.vote_average,
+      type: row.media_type,
+    }))
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+
 }

@@ -18,7 +18,7 @@ export const MediaPage = ({ type }) => {
   if(!data) return null
   return (
     <React.Fragment>
-      <div className="root" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+      <div className="root" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
         <div className="gradient-bg">
           <section className="section flex hero">
             <div className="hero-media">

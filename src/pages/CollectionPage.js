@@ -17,7 +17,7 @@ export const CollectionPage = () => {
   if(!collection) return null
   return (
     <React.Fragment>
-      <div className="root" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${collection.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+      <div className="root feature" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${collection.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
         <div className="gradient-bg">
           <section className="section flex hero">
             <div className="hero-media">
@@ -36,7 +36,7 @@ export const CollectionPage = () => {
         </div>
       </div>
       {collection.parts.map(movie => (
-        <div className="root" key={movie.id} style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${movie.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}>
+        <div className="root feature" key={movie.id} style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${movie.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <div className="gradient-bg">
             <section className="section flex hero">
               <div className="hero-info">
