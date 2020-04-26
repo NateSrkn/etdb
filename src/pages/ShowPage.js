@@ -3,86 +3,79 @@ import { Image } from '../components/Image'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { CastList } from '../components/CastList'
-import { fetchMedia } from '../api/functions'
 import { ratingPercent } from '../helpers/helper'
 import { Button } from '../components/Button'
-import { loadSingularMovie } from '../store/types/movies'
 import { useDispatch, useSelector } from 'react-redux'
-// import { loadSingularMovie } from '../store/types/movies'
+import { loadSingularShow } from '../store/types/shows'
+import { addShowToViewed } from '../store/types/viewed'
 
-export const MediaPage = ({ type }) => {
-  let { movieId, showId } = useParams()
+export const ShowPage = () => {
+  let { tvId } = useParams()
   const dispatch = useDispatch()
-  const data = useSelector(state => state.entities.movies.currentMovie)
-  const dataLoading = useSelector(state => state.entities.movies.loading)
-    // let [data, setData] = useState(null)
+  const show = useSelector(state => state.entities.shows.currentShow.data)
 
   useEffect(() => {
-      dispatch(loadSingularMovie(movieId))
-  }, [dispatch, movieId])
+      dispatch(loadSingularShow(tvId))
+      dispatch(addShowToViewed())
+  }, [dispatch, tvId])
 
-  if(dataLoading && !data.length) return null
+  if(!show) return null
   return (
     <React.Fragment>
-      <div className="root" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${data.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+      <div className="root" style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${show.backdrop})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
         <div className="gradient-bg">
           <section className="section flex hero">
             <div className="hero-media">
-              <Image hero rounded src={data.poster} alt={data.name} />
+              <Image hero rounded src={show.poster} alt={show.name} />
             </div>
             <div className="hero-info">
-              {data.tagline ? <div className="sub-title">{data.tagline}</div> : null}
-              <h2 className="media-title">{data.name}</h2>    
+              {show.tagline ? <div className="sub-title">{show.tagline}</div> : null}
+              <h2 className="media-title">{show.name}</h2>    
               <div className="group" style={{display: 'flex'}}>
                 <div className="sub-group">
                   <div className="sub-title">Rating</div>
-                  <div>{ratingPercent(data.rating)}</div>
+                  <div>{ratingPercent(show.rating)}</div>
                 </div>
                 <div className="sub-group">
                   <h4 className="sub-title">Release Date</h4>
-                  <time dateTime={data.released}>{data.released}</time>
+                  <time dateTime={show.released}>{show.released}</time>
                 </div>
               </div>
               <div className="group">
                 <div className="sub-title">Genre</div>
-                <div>{data.genres.map(row => row.name).join(', ')}</div>
+                <div>{show.genres.map(row => row.name).join(', ')}</div>
               </div>
               <div className="group">
                 <h4 className="sub-title">Overview</h4>
                 <p className="overview">
-                  {data.overview}
+                  {show.overview}
                 </p>
               </div>
-              {data.seasons ? 
+              {show.seasons ? 
                 <div className="group" style={{display: 'flex'}}>
                   <div className="sub-group">
                     <div className="sub-title">Seasons</div>
-                    <div>{data.seasons.length}</div>
+                    <div>{show.seasons.length}</div>
                   </div>
-                  {data.last_episode ? 
+                  {show.last_episode ? 
                     <div className="sub-group">
                       <div className="sub-title">Last Episode</div>
-                      <div>{data.last_episode.air_date}</div>
+                      <div>{show.last_episode.air_date}</div>
                     </div>
                   : null}
-                  {data.next_episode ? 
+                  {show.next_episode ? 
                     <div className="sub-group">
                       <div className="sub-title">Next Episode</div>
-                      <div>{data.next_episode.air_date}</div>
+                      <div>{show.next_episode.air_date}</div>
                     </div>
                   : null}
                 </div>
               : null} 
-              {data.creators ? 
+              {show.creators ? 
                 <div className="group">
                   <div className="sub-title">Created by</div>
-                  <div>{data.creators.map(creator => creator.name).join(', ')}</div>
+                  <div>{show.creators.map(creator => creator.name).join(', ')}</div>
                 </div>
-              : null}
-              {data.collection ? 
-                <Button link={`/collection/${data.collection.id}`}>
-                  {data.collection.name}
-                </Button>
               : null}
             </div>
           </section>
@@ -91,16 +84,16 @@ export const MediaPage = ({ type }) => {
       <div className="root">
         <div className="section">
           <h3 className="section-title">Cast</h3>
-          <CastList cast={data.cast} />
+          <CastList cast={show.cast} />
         </div>
       </div>
       <div className="root">
         <div className="section flex">
-          {data.seasons ? 
+          {show.seasons ? 
             <div className="sub-section">
               <h3 className="section-title">Seasons</h3>
                 <ul className="vertical-scroll">
-                  {data.seasons.map(row => (
+                  {show.seasons.map(row => (
                     <li className="vertical-card" key={row.id}>
                       <div className="flex-card">
                         <Image small src={row.poster_path} alt={row.name} flex />
@@ -123,13 +116,13 @@ export const MediaPage = ({ type }) => {
                 </ul>
             </div>
           : null}
-          {data.similar.length > 0 ? 
+          {show.similar.length > 0 ? 
           <div className="sub-section">
-            <h3 className="section-title">{type === 'movie' ? 'Similar Movies'  : 'Similar Shows'}</h3>
+            <h3 className="section-title">Similar Shows</h3>
               <ul className="vertical-scroll">
-                {data.similar.map(row => (
+                {show.similar.map(row => (
                   <li className="vertical-card" key={row.id}>
-                    <Link to={`/${type}/${row.id}`} style={{display: 'flex'}}>
+                    <Link to={`/tv/${row.id}`} style={{display: 'flex'}}>
                       <Image small src={row.image} alt={row.name} flex />
                       <div className="card-info">
                         <h3 className="title">{row.name}</h3>

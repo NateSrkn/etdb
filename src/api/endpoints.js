@@ -1,4 +1,4 @@
-const baseUrl = 'https://api.themoviedb.org/3'
+export const baseUrl = 'https://api.themoviedb.org/3'
 
 export const FETCH_SINGULAR_ENDPOINT = (type, id) => {
   let endpoint = `${baseUrl}/${type}/${id}`

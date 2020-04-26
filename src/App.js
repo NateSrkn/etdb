@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import { Header } from './components/Header'
 import { FeaturedHero } from './components/FeaturedHero'
 import { MediaList } from './components/MediaList'
-import { MediaPage } from './pages/MediaPage'
+import { MoviePage } from './pages/MoviePage'
+import { ShowPage } from './pages/ShowPage'
 import { AllPage } from './pages/AllPage'
 import { PersonPage } from './pages/PersonPage'
 import { CollectionPage } from './pages/CollectionPage'
 import { Section, Root } from './components/Layout';
+import { useDispatch, useSelector } from 'react-redux'
 import './styles/main.scss';
+import { loadMovies } from './store/types/movies';
+import { loadShows } from './store/types/shows';
 
 const App = () => {
-  
+  const dispatch = useDispatch()
+  const movies = useSelector(state => state.entities.movies.list)
+  const shows = useSelector(state => state.entities.shows.list)
+  const moviesLoading = useSelector(state => state.entities.movies.isLoading)
+  const showsLoading = useSelector(state => state.entities.shows.isLoading)
+  useEffect(() => {
+    dispatch(loadMovies())
+    dispatch(loadShows())
+  }, [dispatch])
+
   return (
     <div className="App">
       <Header />
@@ -20,18 +33,12 @@ const App = () => {
           <FeaturedHero />
           <Root>
             <Section className="section">
-              <MediaList type="movie" isLatest={true} />
+              {!moviesLoading && movies.length && <MediaList data={movies} type="movie" />}
             </Section>
             <Section className="section">
-              <MediaList type="tv" isLatest={true} />
+              {!showsLoading && shows.length && <MediaList data={shows} type="tv" />}
             </Section>
           </Root>
-        </Route>
-        <Route path="/movie/:movieId">
-            <MediaPage key=":movieId" type='movie' />
-        </Route>
-        <Route path="/tv/:tvId">
-            <MediaPage key=":tvId" type='tv' />
         </Route>
         <Route path="/person/:personId">
             <PersonPage key="person" />
@@ -46,6 +53,16 @@ const App = () => {
           <CollectionPage key="collection" />
         </Route>
       </Switch>
+      <Switch>
+          <Route path="/movie/:movieId">
+              <MoviePage/>
+          </Route>
+        </Switch>
+        <Switch>
+          <Route path="/tv/:tvId">
+              <ShowPage />
+          </Route>
+        </Switch>
     </div>
   )
 }
