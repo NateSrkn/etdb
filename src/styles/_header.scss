@@ -1,5 +1,5 @@
 .nav-header {
-  width: 100%;
+  min-width: 100%;
   margin: auto;
 
   .nav-header-content {
@@ -9,6 +9,9 @@
     max-width: 78rem;
     @media screen and (max-width: $tablet-breakpoint) {
       padding: 10px;
+    }
+    @media screen and (max-width: $mobile-breakpoint) {
+      flex-direction: column;
     }
 
     .sub-content {

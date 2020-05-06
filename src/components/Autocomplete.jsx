@@ -12,8 +12,9 @@ export const Autocomplete = () => {
   const listenForInput = () => {
     let timeout = null;
     clearTimeout(timeout);
+
     timeout = setTimeout(() => {
-      if (query === "") return setSearchData(null);
+      if (query === "") return setSearchData([]);
       searchQuery(query);
     }, 1000);
   };
@@ -28,9 +29,9 @@ export const Autocomplete = () => {
         query: queryText,
       },
     };
-    const results = await call(options);
+    const { results } = await call(options);
     setSearchData(
-      results.results.map((row) => ({
+      results.map((row) => ({
         id: row.id,
         name: row.name || row.title,
         type: row.media_type,
@@ -43,7 +44,6 @@ export const Autocomplete = () => {
 
   const onBlur = () => {
     setQuery("");
-
     setTimeout(() => {
       setSearchData([]);
     }, 100);
@@ -51,21 +51,16 @@ export const Autocomplete = () => {
 
   return (
     <div className="search-container">
-      <i
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="fas fa-search"
-      ></i>
-      {isExpanded && (
-        <input
-          type="text"
-          id="main-search"
-          placeholder="Search Entertainment"
-          onChange={({ target }) => setQuery(target.value)}
-          onKeyUp={listenForInput}
-          onBlur={() => onBlur()}
-          value={query}
-        />
-      )}
+      <input
+        type="text"
+        id="main-search"
+        placeholder="Search Entertainment"
+        onChange={({ target }) => setQuery(target.value)}
+        onKeyUp={listenForInput}
+        onBlur={() => onBlur()}
+        value={query}
+      />
+
       {searchData && <Dropdown results={searchData} />}
     </div>
   );
@@ -90,7 +85,7 @@ const Dropdown = ({ results }) => {
         <Link to={`/${result.type}/${result.id}`} key={result.id}>
           <div className="drop-item">
             <div className="drop-media">
-              <Image small src={result.image} alt={result.name} />
+              <Image small type="poster" src={result.image} alt={result.name} />
             </div>
             <div className="drop-info">
               <div className="sub-title">{displayTitle(result.type)}</div>
