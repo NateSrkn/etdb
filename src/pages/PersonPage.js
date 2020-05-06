@@ -1,81 +1,60 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { Image } from '../components/Image'
-import { Link } from 'react-router-dom'
-import { ratingPercent } from '../helpers/helper'
-import { fetchPerson } from '../api/functions'
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { CreditsCard } from "../components/cards/CreditsCard";
+import { VerticalList } from "../components/common/VerticalList";
+import { HeroBanner } from "../components/HeroBanner";
+import { useSelector, useDispatch } from "react-redux";
+import { loadSingularPerson } from "../store/types/person";
+import { addPersonToViewed } from "../store/types/viewed";
+import { PersonInfo } from "../components/PersonInfo";
 
 export const PersonPage = () => {
-  let id = useParams()
-  let [person, setPerson] = useState(null)
+  const dispatch = useDispatch();
+  let { personId } = useParams();
+  let person = useSelector((state) => state.entities.person.currentPerson.data);
+  const scrollToTop = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
 
   useEffect(() => {
-    fetchPerson(id.personId).then(result => setPerson(result))
-  }, [id])
-  if(!person) return null
+    scrollToTop();
+    dispatch(loadSingularPerson(personId));
+    dispatch(addPersonToViewed());
+  }, [dispatch, personId]);
+  if (!person) return null;
+
   return (
     <React.Fragment>
-        <div className="root">
-          <div className="gradient-bg">
-            <div className="section flex hero">
-                <div className="hero-media">
-                  <Image rounded hero src={person.image} alt={person.name}/>
-                </div>
-                <div className="hero-info">
-                  <h3 className="media-title">{person.name}</h3>
-                  <div className="group">
-                    <div className="sub-title">Overview</div>
-                    <p className="overview">
-                      {person.overview}
-                    </p>
-                  </div>
-                </div>
-            </div>
-          </div>
+      <HeroBanner data={person}>
+        <PersonInfo data={person} />
+      </HeroBanner>
+      <div className="root">
+        <div className="section flex">
+          {renderMovieCredits(person)}
+          {renderTvCredits(person)}
         </div>
-        <div className="root">
-          <div className="section flex">
-            {person.movie_credits.length > 0 ?      
-            <div className="sub-section">
-              <h3>Movies</h3>
-              <MediaCredits credits={person.movie_credits} />
-            </div> : null}
-            {person.tv_credits.length > 0 ?      
-            <div className="sub-section">
-              <h3>Shows</h3>
-              <MediaCredits credits={person.tv_credits} />
-            </div> : null}
-          </div>
-        </div>
+      </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-const MediaCredits = ({ credits }) => {
+const renderMovieCredits = ({ movie_credits }) => {
+  if (!movie_credits.length) return null;
   return (
-    <ul className="vertical-scroll">
-      {credits.map(row => (
-        <li className="vertical-card" key={row.id}>
-          <Link to={`/${row.media_type}/${row.id}`}>
-            <Image src={row.poster_path} alt={row.name || row.title} flex small/>
-            <div className="card-info">
-              <h3 className="title">{row.name || row.title}</h3>
-              <div className="group" style={{display: 'flex'}}>
-                <div className="sub-group">
-                  <div className="sub-title dark">Rating</div>
-                  <div className="rating">{ratingPercent(row.vote_average)}</div>
-                </div>
-                <div className="sub-group">
-                  <div className="sub-title dark">Released</div>
-                  <time dateTime={row.release_date || row.first_air_date}>
-                  {row.release_date || row.first_air_date}
-                  </time>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  )
-}
+    <div className="section">
+      <h3 className="section-title">Movies</h3>
+      <VerticalList data={movie_credits} component={CreditsCard} />
+    </div>
+  );
+};
+
+const renderTvCredits = ({ tv_credits }) => {
+  if (!tv_credits.length) return null;
+  return (
+    <div className="section">
+      <h3 className="section-title">Shows</h3>
+      <VerticalList data={tv_credits} component={CreditsCard} />
+    </div>
+  );
+};

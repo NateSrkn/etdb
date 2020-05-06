@@ -1,16 +1,18 @@
 .search-container {
   position: relative;
   input {
-    width: 0;
     outline: none;
     border: none;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid black;
     background: none;
     color: black;
     padding: 10px;
-    transition: ease 0.2s;
+    width: 20rem;
     &::placeholder {
       color: black;
+    }
+    @media screen and (max-width: $mobile-breakpoint) {
+      width: 100%;
     }
   }
 }
@@ -20,10 +22,11 @@
   top: 100%;
   max-height: 50rem;
   overflow-y: scroll;
-  background-color: rgba(255,255,255, 1);
+  background-color: rgba(255, 255, 255, 1);
   color: black;
   left: 0;
   width: 100%;
+  z-index: 9999;
 
   .sub-title {
     color: black;
