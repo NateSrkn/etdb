@@ -1,49 +1,55 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const slice = createSlice({
-  name: 'viewed',
+  name: "viewed",
   initialState: {
     movies: [],
     shows: [],
-    people: []
+    people: [],
   },
   reducers: {
     newMovieViewed: (viewed, action) => {
-      viewed.movies.push(action.payload)
+      viewed.movies.push(action.payload);
     },
     newShowViewed: (viewed, action) => {
-      viewed.shows.push(action.payload)
+      viewed.shows.push(action.payload);
     },
     newPersonViewed: (viewed, action) => {
-      viewed.person.push(action.payload)
-    }
-  }
-})
-
+      viewed.people.push(action.payload);
+    },
+  },
+});
 
 export const addMovieToViewed = () => (dispatch, getState) => {
-  const { movies } = getState().viewed
-  const currentMovie = getState().entities.movies.currentMovie.data
-  const exists = movies && currentMovie && movies.filter(item => item.id == currentMovie.id)
-  if(exists && exists.length > 0) return 
-  currentMovie && dispatch(newMovieViewed(currentMovie))
-}
-
+  const { movies } = getState().viewed;
+  const currentMovie = getState().entities.movies.currentMovie.data;
+  const exists =
+    movies &&
+    currentMovie &&
+    movies.filter((item) => item.id == currentMovie.id);
+  if (exists && exists.length > 0) return;
+  currentMovie && dispatch(newMovieViewed(currentMovie));
+};
 
 export const addShowToViewed = () => (dispatch, getState) => {
-  const { shows } = getState().viewed
-  const currentShow = getState().entities.shows.currentShow.data
-  const exists = shows && currentShow && shows.filter(item => item.id == currentShow.id)
-  if(exists && exists.length > 0) return 
-  currentShow && dispatch(newShowViewed(currentShow))
-}
+  const { shows } = getState().viewed;
+  const currentShow = getState().entities.shows.currentShow.data;
+  const exists =
+    shows && currentShow && shows.filter((item) => item.id == currentShow.id);
+  if (exists && exists.length > 0) return;
+  currentShow && dispatch(newShowViewed(currentShow));
+};
 
 export const addPersonToViewed = () => (dispatch, getState) => {
-  const { people } = getState().viewed
-  const { currentPerson } = getState().entities.people
-  const person = people && people.filter(item => item.id === currentPerson.id)
-  dispatch(newPersonViewed(person))
-}
+  const { people } = getState().viewed;
+  const currentPerson = getState().entities.person.data;
+  const exists =
+    people &&
+    currentPerson &&
+    people.filter((item) => item.id == currentPerson.id);
+  if (exists && exists.length > 0) return;
+  currentPerson && dispatch(newPersonViewed(createSlice));
+};
 
-const { newMovieViewed, newShowViewed, newPersonViewed } = slice.actions
-export default slice.reducer
+const { newMovieViewed, newShowViewed, newPersonViewed } = slice.actions;
+export default slice.reducer;
